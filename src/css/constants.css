@@ -1,0 +1,26 @@
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+}
+
+:root {
+    --clr-dark: #000000;
+    --clr-primary: #FF2F2F;
+    --clr-light:  #FFFFFF;
+    --clr-accent-one: #2B94FC;
+    --clr-accent-two: #1D1B20;
+    --clr-price: grey;
+    --clr-text: #505050;
+
+    --fw-light: 300;
+    --fw-regular: 400;
+    --fw-bold: 800;
+    --fw-black: 900;
+
+    --ff-primary: 'Heebo', sans-serif;
+
+    --letter-spacing: 0.125rem;
+
+}
