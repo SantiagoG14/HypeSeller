@@ -1,0 +1,42 @@
+@import url("constants.css");
+
+
+
+.catalog-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(10rem, 29.1875rem));
+    grid-template-rows: 2rem auto-fit;
+    grid-column-gap: 9rem;
+    grid-row-gap: 2rem;
+    margin-top: 3rem;
+
+    justify-content: center;
+}
+
+.product {
+    margin-bottom: 2rem;
+}
+
+
+.product img {
+    width: 29.1875rem;  
+    max-width: 100%;
+    max-height: 29rem;
+    object-fit: cover;
+    cursor: pointer;
+}
+
+
+.product-shoeInfo {
+    display: flex;
+    justify-content: space-between;
+    font-family: var(--ff-primary);
+}
+
+.product-title {
+    grid-column: 1 / -1;
+    font-family: var(--ff-primary);
+    color: var(--clr-text);
+}
+
+

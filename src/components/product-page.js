@@ -15,6 +15,7 @@ function useProduct(itemId) {
 
     useEffect(()=>{
         fetchProduct()
+        window.scrollTo(0,0)
     },[])
     const fetchProduct = async ()=> {
         // const db = firestore.collection('catalog').doc('eQhKX8PIUwNNEU0pQ1bV')

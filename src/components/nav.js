@@ -18,6 +18,10 @@ function Nav() {
             ...doc.data()
         })))
     }
+
+    function dropDown() {
+
+    }
     return(
         <header>
             <Link to="/" className="logo" >
@@ -26,9 +30,9 @@ function Nav() {
             <input type="checkbox" id="toggle-nav" className="toggle-nav" />
             <nav>
                 <ul className="list">
-                    {productTypes.map((pt) => (
-                        <li key={pt.id} className="list-items"><a href="product-catalog.html" className="list-link">{pt.name}</a> <span><i className="fas fa-angle-down list-link-dropdown"></i></span></li>
-                    ))}
+                    <li className="list-items"><Link to="/catalog" className="list-link">Shoes</Link> <span><i className="fas fa-angle-down list-link-dropdown"></i></span></li>
+                    <li className="list-items"><Link to="/catalog" className="list-link">Clothes</Link></li>
+                    <li className="list-items"><Link to="/catalog" className="list-link">Accessories</Link></li>
                 </ul>
            
             </nav>
