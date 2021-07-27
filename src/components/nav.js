@@ -21,7 +21,7 @@ function Nav() {
     return(
         <header>
             <Link to="/" className="logo" >
-                <img src="pictures/Icons/Logo.jpg" alt="Cheap Hype Seller Logo" />
+                <img src="../pictures/Icons/Logo.jpg" alt="Cheap Hype Seller Logo" />
             </Link>
             <input type="checkbox" id="toggle-nav" className="toggle-nav" />
             <nav>
