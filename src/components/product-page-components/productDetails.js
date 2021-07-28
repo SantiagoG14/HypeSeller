@@ -9,7 +9,7 @@ const ProductDetails = (props) => {
             // brand={product.brandId}
             name={product.name}
             nickname={product.nickname} 
-            brandName={product.brandName}
+            brandName={product.brand}
             />
 
             <AddToCartBtn />     

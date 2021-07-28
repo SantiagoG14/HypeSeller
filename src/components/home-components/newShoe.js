@@ -4,7 +4,7 @@ import {Link} from 'react-router-dom'
 function NewShoe(props) {
     return(
         <div class="card" key={props.key}>
-            <Link to={`/catalog/${props.itemId}`}>
+            <Link to={`/catalog/products/${props.itemId}`}>
                 <img src={props.image} alt="Yeezy boost"/>
             </Link>
             <div class="catalog-info">

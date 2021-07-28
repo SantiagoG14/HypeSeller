@@ -15,7 +15,7 @@ const PictureDisplay = (props) => {
         <section className="image__display">
             {
             images.map(image =>(
-                <Picture image={`../${image}`}/> 
+                <Picture image={image}/> 
             ))
             }   
         </section>

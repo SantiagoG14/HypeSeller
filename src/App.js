@@ -14,8 +14,10 @@ function App() {
         <Nav />
         <Switch>
           <Route path="/" exact component={Home} />
-          <Route path="/catalog/:id" component={ProductPage} />
-          <Route path="/catalog" component={ProductCatalog}></Route>
+          <Route path="/catalog/products/:id" component={ProductPage} />
+          <Route path="/catalog/:productType" exact component={ProductCatalog}></Route>
+          <Route path="/catalog/:productType/:brand" component={ProductCatalog}></Route>
+
         </Switch>
       
       </div>

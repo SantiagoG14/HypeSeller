@@ -19,9 +19,7 @@ function Nav() {
         })))
     }
 
-    function dropDown() {
-
-    }
+   
     return(
         <header>
             <Link to="/" className="logo" >
@@ -30,9 +28,13 @@ function Nav() {
             <input type="checkbox" id="toggle-nav" className="toggle-nav" />
             <nav>
                 <ul className="list">
-                    <li className="list-items"><Link to="/catalog" className="list-link">Shoes</Link> <span><i className="fas fa-angle-down list-link-dropdown"></i></span></li>
-                    <li className="list-items"><Link to="/catalog" className="list-link">Clothes</Link></li>
-                    <li className="list-items"><Link to="/catalog" className="list-link">Accessories</Link></li>
+                    <li className="list-items"><Link to="/catalog/shoes" className="list-link">Shoes</Link> <span><i className="fas fa-angle-down list-link-dropdown"></i></span></li>
+                    <ul>
+                        <li><Link to="/catalog/shoes/adidas">Adidas</Link></li>
+                        <li><Link to="/catalog/shoes/nike">Nike</Link></li>
+                    </ul>
+                    <li className="list-items"><Link to="/catalog/clothes" className="list-link">Clothes</Link></li>
+                    <li className="list-items"><Link to="/catalog/accessories" className="list-link">Accessories</Link></li>
                 </ul>
            
             </nav>
