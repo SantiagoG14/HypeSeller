@@ -1,24 +1,12 @@
 import React, {useEffect, useState} from 'react'
-import { firestore } from '../firebase'
+import { firestore, getCatalog } from '../firebase'
 import Product from './product-catalog-components/catalog-product'
 import BrandTitle from './product-catalog-components/catalog-title'
 
-const groupProductsByBrand = (products) => {
-    const reducer = (acc, current) => {
-        let productsByBrand = acc.find(v => v.brand === current.brand)
-        if(typeof productsByBrand === 'undefined' ) {
-            acc.push({
-                brand: current.brand,
-                products: [current]
-            })
-        }else {
-            productsByBrand.products.push(current)
-        }
-        return acc
-    }
-    return products.reduce(reducer,[])
-}
 
+function upperCase(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1)
+}
 const ProductCatalog = ({match})=> {
     const [productsGroupedByBrand, setProducts] = useState([])
     const {productType, brand} = match.params
@@ -36,23 +24,21 @@ const ProductCatalog = ({match})=> {
     }, [productType, brand])
 
     const fetchProducts =  async () => {
-        const productsData = await query.get()
-        const products = productsData.docs.map(doc => ({
-            id: doc.id,
-             ...doc.data()
-        }))
-        setProducts(groupProductsByBrand(products))
+
+        const producstByBrand = await getCatalog(query)
+        setProducts(producstByBrand)
+
     }
 
     return(
         productsGroupedByBrand.map((productsByBrand) => (
             <div className="catalog-container">
-                <BrandTitle title={productsByBrand.brand} />
+                <BrandTitle title={upperCase(productsByBrand.brand)} />
                 {
                         productsByBrand.products.map(product =>(
                         <Product 
                         id={product.id}
-                        image={product.images.main}
+                        image={product.mainImageUrl}
                         name={product.name}
                         price={product.price}
                         />)

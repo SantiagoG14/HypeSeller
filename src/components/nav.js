@@ -19,20 +19,28 @@ function Nav() {
         })))
     }
 
+    const list = document.querySelector('.nav-shoes-list ul')
+
+    function changeView() {
+        list.classList.toggle('active')
+    }
    
     return(
         <header>
             <Link to="/" className="logo" >
-                <img src="../pictures/Icons/Logo.jpg" alt="Cheap Hype Seller Logo" />
+                <img src="https://firebasestorage.googleapis.com/v0/b/cheap-hype-seller.appspot.com/o/logo%2FLogo.jpg?alt=media&token=90fa8cc8-beb3-4254-a492-402ce96e3aef" alt="Cheap Hype Seller Logo" />
             </Link>
             <input type="checkbox" id="toggle-nav" className="toggle-nav" />
             <nav>
                 <ul className="list">
-                    <li className="list-items"><Link to="/catalog/shoes" className="list-link">Shoes</Link> <span><i className="fas fa-angle-down list-link-dropdown"></i></span></li>
-                    <ul>
-                        <li><Link to="/catalog/shoes/adidas">Adidas</Link></li>
-                        <li><Link to="/catalog/shoes/nike">Nike</Link></li>
-                    </ul>
+                    <div className="nav-shoes-list">
+                        <li className="list-items"><Link to="/catalog/shoes" className="list-link">Shoes</Link> <span onClick={()=>changeView()}><i className="fas fa-angle-down list-link-dropdown"></i></span></li>
+                        <ul>
+                            <li className="shoes-list-item"><Link to="/catalog/shoes/adidas" className="shoes-list-link">Adidas</Link></li>
+                            <li className="shoes-list-item"><Link to="/catalog/shoes/nike" className="shoes-list-link">Nike</Link></li>
+                            <li className="shoes-list-item"><Link to="/catalog/shoes/nike" className="shoes-list-link">Gucci</Link></li>
+                        </ul>
+                    </div>
                     <li className="list-items"><Link to="/catalog/clothes" className="list-link">Clothes</Link></li>
                     <li className="list-items"><Link to="/catalog/accessories" className="list-link">Accessories</Link></li>
                 </ul>

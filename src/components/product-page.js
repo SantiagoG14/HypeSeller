@@ -1,13 +1,13 @@
 import React, {useState, useEffect} from 'react'
-import { firestore, storage } from '../firebase'
+import { getProduct} from '../firebase'
 import PictureDisplay from './product-page-components/product-images'
 import ProductDetails from './product-page-components/productDetails'
 
 
 function useProduct(itemId) {
     const [product, setProduct] = useState({
-        images:[],
-        brandName: ''
+        images: [],
+        brand: ' '
     })
 
     useEffect(()=>{
@@ -15,15 +15,14 @@ function useProduct(itemId) {
         window.scrollTo(0,0)
     },[])
     const fetchProduct = async ()=> {
-        const docRef = firestore.collection('catalog').doc(itemId)
-        const docProduct = await docRef.get()
-        const productData = docProduct.data()
-        const images = [productData.images.main, ...productData.images.rest]
-        const imagesUrl = await Promise.all(images.map(img => (storage.ref(`${itemId}/${img}`).getDownloadURL())))
-        setProduct({
-            ...productData,
-            images : imagesUrl
-        })
+        // const docRef = firestore.collection('catalog').doc(itemId)
+        // const docProduct = await docRef.get()
+        // const productData = docProduct.data()
+        // const images = [productData.images.main, ...productData.images.rest]
+        
+        const productData = await getProduct(itemId)
+        setProduct(productData)
+        console.log(productData)
     }
 
     return product

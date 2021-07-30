@@ -1,15 +1,18 @@
 import React from 'react'
 
-const ProductDetails = (props) => {
-    const product = props.product
+function upperCase(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1)
+}
 
+const ProductDetails = (props) => {
+    const product = props.product   
     return(
         <section className="shoes__description">
             <ShoeInfo 
             // brand={product.brandId}
             name={product.name}
             nickname={product.nickname} 
-            brandName={product.brand}
+            brandName={upperCase(product.brand)}
             />
 
             <AddToCartBtn />     

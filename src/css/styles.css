@@ -17,9 +17,10 @@ nav {
     top: 100%;
     width: 100%;
     font-family: var(--ff-primary);
-    text-transform: uppercase;
     background-color: var(--clr-dark);
     display: none;
+    text-transform: uppercase;
+
 }
 
 .logo {
@@ -55,6 +56,8 @@ nav {
 }
 
 
+
+
 .list-link::after {
     content: '';
     height: 3px;
@@ -73,6 +76,58 @@ nav {
     transform: scale(1,1);
     transform-origin: left;
 }
+
+
+.nav-shoes-list ul {
+    list-style-type: none;
+    overflow: hidden;
+    height: 0;
+    overflow-y: auto;
+    transition: height 250ms ease-out;
+    background-color: var(--clr-accent-two);
+    color: var(--clr-light);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+ }
+
+.shoes-list-item {
+    cursor: pointer;
+    width: min-content;
+    padding: 0.25rem;
+    position: relative;
+    text-decoration: none;
+    color: var(--clr-light);
+    box-sizing: border-box;
+}
+
+.shoes-list-link {
+    text-decoration: none;
+    color: var(--clr-light)
+}
+
+.shoes-list-item::after {
+    position: absolute;
+    content: '';
+    right: 0;
+    left: 0;
+    bottom: 0;
+    background-color: var(--clr-light);
+    height: 2px;
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 250ms ease-out;
+}
+
+.shoes-list-item:hover::after {
+    transform: scaleX(1);
+    transform-origin: left;
+}
+
+ul.active {
+    height: 7rem;
+}
+
 
 .nav-icons {
     position: absolute;
@@ -389,6 +444,21 @@ footer {
 
     .list-items {
         margin: 0;
+    }
+
+    .nav-shoes-list ul {
+        height: 7rem;
+        opacity: 0;
+        position: absolute;
+        padding: 0 2rem;
+        border-radius: 0.25rem;
+        transform: translateY(-10px);
+        transition: all 250ms ease-in;
+    }
+
+    ul.active {
+        opacity: 1;
+        transform: translateY(15px);
     }
 
     .nav-icons {

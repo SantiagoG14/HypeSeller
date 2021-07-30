@@ -7,7 +7,7 @@ const Product = (props)=> {
     return(
         <div className="product" key={props.id}>
             <Link to={`/catalog/products/${props.id}`}>
-                <img src={`../${props.image}`} alt=""/>
+                <img src={props.image} alt=""/>
             </Link>
             <div className="product-shoeInfo">
                 <p id="name" className="card-name">{props.name}</p>
