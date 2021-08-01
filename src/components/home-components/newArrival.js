@@ -2,40 +2,34 @@ import React, {useState, useEffect} from 'react'
 import NewShoe from './newShoe'
 import {getNewHeat} from '../../firebase'
 
-
-function useProducts() {
+const NewArrivals = ()=> {
     const [products, setProducts] = useState([])
 
     useEffect(()=>{
-        fetchShoes()
+        let isSubscribed = true
+        getNewHeat().then(newHeat => {
+            if(isSubscribed){
+                setProducts(newHeat)
+            }
+        })
+        return ()=> isSubscribed = false
     },[])
-    const fetchShoes = async ()=> {
-        const newHeat = await getNewHeat()
-        setProducts(newHeat)
-    }
-    return products
-}
-
-const NewArrivals = ()=> {
-    const shoes = useProducts()
     return(
         <section className="product__page-card">
             <div className="catalog">
 
-                {shoes.map(shoe=>
+                {products.map(product=>
                     <NewShoe 
-                    key={shoe.id}
-                    image={shoe.imageMainUrl}
-                    shoeName={shoe.name}
-                    shoePrice={shoe.price}
-                    itemId={shoe.id}
-                    
+                        key={product.id}
+                        image={product.imageMainUrl}
+                        shoeName={product.name}
+                        shoePrice={product.price}
+                        itemId={product.id}
                     />
                 )}
             </div>
     </section>
     )
-    
 }
 
 export default NewArrivals

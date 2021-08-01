@@ -470,6 +470,23 @@ footer {
         margin-right: 2rem;
     }
 
+    .shopping-bag {
+        position: relative;
+    }
+    .number-of-items {
+        position: absolute;
+        color: var(--clr-light);
+        font-family: var(--ff-primary);
+        top: -0.5rem;
+        right: 5px;
+        background-color: var(--clr-primary);
+        width: 1.5rem;
+        height: 1.5rem;
+        text-align: center;
+        border-radius: 50%;
+
+    }
+
     /* end of query styles for header */
 
 

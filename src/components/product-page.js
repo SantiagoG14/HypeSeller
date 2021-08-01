@@ -1,42 +1,50 @@
-import React, {useState, useEffect} from 'react'
-import { getProduct} from '../firebase'
+import React, {useState, useEffect, useContext} from 'react'
+import { firestore, getProduct} from '../firebase'
+import firebase from 'firebase/app'
 import PictureDisplay from './product-page-components/product-images'
 import ProductDetails from './product-page-components/productDetails'
+import { AppContext } from '../App'
 
-
-function useProduct(itemId) {
+const ProductPage = ({match}, props) => {
+    let processingAddingToCart = false
     const [product, setProduct] = useState({
         images: [],
         brand: ' '
     })
 
     useEffect(()=>{
-        fetchProduct()
-        window.scrollTo(0,0)
-    },[])
-    const fetchProduct = async ()=> {
-        // const docRef = firestore.collection('catalog').doc(itemId)
-        // const docProduct = await docRef.get()
-        // const productData = docProduct.data()
-        // const images = [productData.images.main, ...productData.images.rest]
-        
-        const productData = await getProduct(itemId)
-        setProduct(productData)
-        console.log(productData)
+        let isSubscribed = true
+        getProduct(match.params.id).then(productData => {
+            if(isSubscribed){
+                setProduct(productData)
+                window.scrollTo(0,0)
+
+            }
+        })
+
+        return ()=> isSubscribed = false
+    },[match.params.id])
+
+    const userCredentials = useContext(AppContext)
+
+    const handleClick = ()=> {
+        processingAddingToCart = true
+        firestore.collection('bags').doc(userCredentials.user.uid).update({
+            bag: firebase.firestore.FieldValue.arrayUnion(product.id)
+        }).then(()=> {
+            processingAddingToCart = false
+        })
     }
-
-    return product
-}
-
-
-const ProductPage = ({match}) => {
-    const product = useProduct(match.params.id)
-
+    
     return(
         <main>
             <div className="product__page">
                 <PictureDisplay images={product.images} />
-                <ProductDetails product={product}/>
+                <ProductDetails 
+                product={product}
+                addToCartClick={handleClick}
+                processingAddingToCart={processingAddingToCart}
+                 />
             </div>
         </main>
        

@@ -1,30 +1,16 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import '../css/styles.css'
-import { firestore } from '../firebase'
 import {Link} from 'react-router-dom'
+import ShoppingBag from './bag'
 
 
-function Nav() {
+function Nav({shoppingBag}) {
 
-    const [productTypes, setProductType] = useState([])
-    useEffect(()=> {
-        fetchProductTypes()
-    },[])
-
-    const fetchProductTypes = async ()=> {
-        const data = await firestore.collection('product-types').get()
-        setProductType(data.docs.map(doc => ({
-            id:doc.id,
-            ...doc.data()
-        })))
-    }
-
-    const list = document.querySelector('.nav-shoes-list ul')
-
-    function changeView() {
-        list.classList.toggle('active')
-    }
+    const [activeDropDown, setActive] = useState(false)
    
+    const handleActiveList = ()=> {
+        setActive(!activeDropDown)
+    }
     return(
         <header>
             <Link to="/" className="logo" >
@@ -33,16 +19,22 @@ function Nav() {
             <input type="checkbox" id="toggle-nav" className="toggle-nav" />
             <nav>
                 <ul className="list">
-                    <div className="nav-shoes-list">
-                        <li className="list-items"><Link to="/catalog/shoes" className="list-link">Shoes</Link> <span onClick={()=>changeView()}><i className="fas fa-angle-down list-link-dropdown"></i></span></li>
-                        <ul>
-                            <li className="shoes-list-item"><Link to="/catalog/shoes/adidas" className="shoes-list-link">Adidas</Link></li>
-                            <li className="shoes-list-item"><Link to="/catalog/shoes/nike" className="shoes-list-link">Nike</Link></li>
-                            <li className="shoes-list-item"><Link to="/catalog/shoes/nike" className="shoes-list-link">Gucci</Link></li>
+                    <div key="item1" className="nav-shoes-list">
+
+                        <li key="item2" className="list-items">
+                            <Link to="/catalog/shoes" className="list-link">Shoes</Link>
+                            <span onClick={()=>handleActiveList()}>
+                                <i className="fas fa-angle-down list-link-dropdown"></i>
+                            </span>
+                        </li>
+                        <ul key="item3" className={activeDropDown ? 'active' : ''}>
+                            <li key="item4" className="shoes-list-item"><Link to="/catalog/shoes/adidas" className="shoes-list-link">Adidas</Link></li>
+                            <li key="item5" className="shoes-list-item"><Link to="/catalog/shoes/nike" className="shoes-list-link">Nike</Link></li>
+                            <li key="item6" className="shoes-list-item"><Link to="/catalog/shoes/nike" className="shoes-list-link">Gucci</Link></li>
                         </ul>
                     </div>
-                    <li className="list-items"><Link to="/catalog/clothes" className="list-link">Clothes</Link></li>
-                    <li className="list-items"><Link to="/catalog/accessories" className="list-link">Accessories</Link></li>
+                    <li key="item7" className="list-items"><Link to="/catalog/clothes" className="list-link">Clothes</Link></li>
+                    <li key="item8" className="list-items"><Link to="/catalog/accessories" className="list-link">Accessories</Link></li>
                 </ul>
            
             </nav>
@@ -54,9 +46,8 @@ function Nav() {
                 <span className="material-icons-outlined authentication">
                     account_circle
                 </span>
-                <span className="material-icons-outlined">
-                    shopping_bag
-                </span>
+                <ShoppingBag numberOfItems={shoppingBag.bag.length}/>
+               
             </div>
         </header>
     )

@@ -3,13 +3,13 @@ import {Link} from 'react-router-dom'
 
 function NewShoe(props) {
     return(
-        <div class="card" key={props.key}>
+        <div className="card">
             <Link to={`/catalog/products/${props.itemId}`}>
                 <img src={props.image} alt="Yeezy boost"/>
             </Link>
-            <div class="catalog-info">
-                <p class="card-name">{props.shoeName}</p>
-                <p class="card-price">${props.shoePrice}</p>
+            <div className="catalog-info">
+                <p className="card-name">{props.shoeName}</p>
+                <p className="card-price">${props.shoePrice}</p>
             </div>
         </div>
     )

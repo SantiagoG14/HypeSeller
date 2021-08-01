@@ -4,14 +4,16 @@ import { storage } from '../../firebase'
 function Collection() {
     const [url, setUrl] = useState('')
     useEffect(()=>{
-        urlPromise()
+        let isSubscribed = true
+        storage.ref("home/SneakerCollection 1.jpg").getDownloadURL().then(url=>{
+            if(isSubscribed){
+                setUrl(url)
+            }
+        })
+
+        return ()=> isSubscribed = false
     })
 
-    const urlPromise = async () =>{
-
-        const url = await storage.ref("home/SneakerCollection 1.jpg").getDownloadURL()
-        setUrl(url)
-    }
     return(
         <div className="product__catalog">
            

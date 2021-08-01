@@ -15,7 +15,7 @@ const ProductDetails = (props) => {
             brandName={upperCase(product.brand)}
             />
 
-            <AddToCartBtn />     
+            <AddToCartBtn handleClick={props.addToCartClick} processing={props.processingAddingToCart}/>     
             <div className="descriptions">
                 <Details 
                 size={product.size}
@@ -52,10 +52,10 @@ const ShoeInfo = (props) => {
 }
 
 
-const AddToCartBtn = ()=> {
+const AddToCartBtn = (props)=> {
     return(
         <div className="action__btns">
-            <button className="cart">Add to shopping bag</button>
+            <button className="cart" onClick={props.handleClick} disabled={props.processing}>{props.processing ? 'please wait' : 'add to shopping bag'}</button>
         </div>
     )
 }
@@ -66,18 +66,18 @@ const Details = (props)=> {
             <h1 className="descriptions-title">Detail: </h1>
             <div className="attributes">
                 <ul>
-                    <li class="attributes__list-item important-text">Size:  </li>
-                    <li class="attributes__list-item important-text">Price: </li>
-                    <li class="attributes__list-item">Condition:</li>
-                    <li class="attributes__list-item">Worn:</li>
-                    <li class="attributes__list-item">Colorway:</li>
+                    <li key={`${props.id}1`} className="attributes__list-item important-text">Size:  </li>
+                    <li key={`${props.id}2`} className="attributes__list-item important-text">Price: </li>
+                    <li key={`${props.id}3`} className="attributes__list-item">Condition:</li>
+                    <li key={`${props.id}4`} className="attributes__list-item">Worn:</li>
+                    <li key={`${props.id}5`} className="attributes__list-item">Colorway:</li>
                 </ul>    
-                <ul class="attributes-numbers">
-                    <li class="attributes__list-item important-text">{props.size}</li>
-                    <li class="attributes__list-item important-text">${props.price}</li>
-                    <li class="attributes__list-item" id="condition">{props.condition}</li>
-                    <li class="attributes__list-item" id="worn">{props.worn}</li>
-                    <li class="attributes__list-item" id="colorway">{props.colorway}</li>
+                <ul className="attributes-numbers">
+                    <li key={`${props.id}6`} className="attributes__list-item important-text">{props.size}</li>
+                    <li key={`${props.id}7`} className="attributes__list-item important-text">${props.price}</li>
+                    <li key={`${props.id}8`} className="attributes__list-item" id="condition">{props.condition}</li>
+                    <li key={`${props.id}9`} className="attributes__list-item" id="worn">{props.worn}</li>
+                    <li key={`${props.id}10`} className="attributes__list-item" id="colorway">{props.colorway}</li>
                 </ul>      
             </div>
         </>
@@ -95,9 +95,9 @@ const Description = (props) => {
 
 const Returns = ()=> {
     return(
-        <div class="returns">
-            <h1 class="descriptions-title">Returns:</h1>
-            <p class="text">If not please with purchase, returns are accepted within 3 buisness days of the purchase, please take a close look at the pictures provided, since this is the shoe you will be recieving if ordered</p>
+        <div className="returns">
+            <h1 className="descriptions-title">Returns:</h1>
+            <p className="text">If not please with purchase, returns are accepted within 3 buisness days of the purchase, please take a close look at the pictures provided, since this is the shoe you will be recieving if ordered</p>
         </div>
     )
 }

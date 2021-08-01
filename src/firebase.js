@@ -16,18 +16,18 @@ export const firestore = app.firestore()
 export const auth = app.auth()
 export const storage = app.storage()
 
-const getQuery = (params)=> {
-    const {productType, brand} =  params
+// const getQuery = (params)=> {
+//     const {productType, brand} =  params
     
-    let query = firestore.collection('catalog')
-    if(typeof productType  === 'string') {
-        query = query.where('productType', '==', productType)
-    }
-    if(typeof brand === 'string') {
-        query = query.where('brand', '==', brand)
-    }
-    return query
-}
+//     let query = firestore.collection('catalog')
+//     if(typeof productType  === 'string') {
+//         query = query.where('productType', '==', productType)
+//     }
+//     if(typeof brand === 'string') {
+//         query = query.where('brand', '==', brand)
+//     }
+//     return query
+// }
 
 export const getCatalog = async (query) => {
     const productsData = await query.get()
@@ -73,6 +73,7 @@ export const getProduct = async (id) => {
     const productData = productDoc.data()
     const imagesUrl = await getMainAndRestImagesUrl(productDoc)
     return {
+        id: id,
         ...productData,
         images: imagesUrl
     }
