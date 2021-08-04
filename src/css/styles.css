@@ -139,6 +139,10 @@ ul.active {
     justify-content: center;
 }
 
+.shopping-bag-link {
+    text-decoration: none;
+}
+
 
 .material-icons-outlined {
     color: var(--clr-light);
@@ -151,6 +155,22 @@ ul.active {
 .material-icons-outlined:first-of-type {
     margin-right: 0.5rem;
 }
+.number-of-items {
+    color: var(--clr-light);
+    position: absolute;
+    background: var(--clr-primary);
+    font-family: var(--ff-primary);
+    top: 0;
+    right: 0;
+    margin-top: 54%;
+    margin-right: 4px;
+    width: 1rem;
+    text-align: center;
+    border-radius: 50%;
+    font-size: 0.75rem;
+    height: 1rem;
+}
+
 
 .toggle-nav{
     display: none;
@@ -308,7 +328,7 @@ ul.active {
     /* margin: auto; */
 }
 
-.card::after {
+/* .card::after {
     content: '';
     background-color: var(--clr-accent-two);
     position: absolute;
@@ -328,7 +348,7 @@ ul.active {
 .card:hover::after {
     transform: scaleX(1);
     transform-origin: left;
-}
+} */
 
 .card img{
     height: 23.8125rem;
@@ -405,7 +425,7 @@ footer {
 
 /* start of media query's for headers and for the main */
 
-@media (min-width: 40rem) {
+@media (min-width: 50rem) {
 
     /* start of query styles for header  */
 
@@ -454,6 +474,10 @@ footer {
         border-radius: 0.25rem;
         transform: translateY(-10px);
         transition: all 250ms ease-in;
+        width: 14.375rem;
+        height: 15.875rem;
+        justify-content: space-around;
+        font-weight: var(--fw-regular);
     }
 
     ul.active {
@@ -464,10 +488,8 @@ footer {
     .nav-icons {
         grid-column: 5 / 6;
         margin-right: 3em;
-    }
-
-    .material-icons-outlined:first-of-type {
-        margin-right: 2rem;
+        /* background-color: blue; */
+        padding: 0 1.5rem;
     }
 
     .shopping-bag {
@@ -477,13 +499,15 @@ footer {
         position: absolute;
         color: var(--clr-light);
         font-family: var(--ff-primary);
-        top: -0.5rem;
-        right: 5px;
+        top: -0.7rem;
+        right: -0.8rem;
         background-color: var(--clr-primary);
         width: 1.5rem;
         height: 1.5rem;
         text-align: center;
         border-radius: 50%;
+        margin-top: 0;
+        font-size: 1rem;
 
     }
 

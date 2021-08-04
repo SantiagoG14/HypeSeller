@@ -38,6 +38,8 @@ function App() {
     return ()=> isSubscribed = false
   },[])
 
+  const CheckoutRender = (props) => <Checkout {...props}  shoppingBag={shoppingBag}/>
+
   return (
     <AppContext.Provider value={userCredentials}>
       <Router>
@@ -49,7 +51,7 @@ function App() {
             
             <Route path="/catalog/:productType" exact component={ProductCatalog}></Route>
             <Route path="/catalog/:productType/:brand" component={ProductCatalog}></Route>
-            <Route path="/checkout" component={Checkout} />
+            <Route path="/checkout" render={CheckoutRender} />
           </Switch>
         
         </div>

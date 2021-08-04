@@ -85,7 +85,7 @@ const CheckoutForm = ({ price, onSuccessfulCheckout }) => {
 
 
   return (
-    <form onSubmit={handleFormSubmit}>
+    <form onSubmit={handleFormSubmit} className="checkout-form">
 
         <div className="input-fields">
             <InputField fieldName="Name" />
@@ -104,7 +104,7 @@ const CheckoutForm = ({ price, onSuccessfulCheckout }) => {
       {checkoutError && <div>{checkoutError}</div>}
       <div>
         {/* TIP always disable your submit button while processing payments */}
-        <button disabled={isProcessing || !stripe}>
+        <button disabled={isProcessing || !stripe} className="checkout-btn">
           {isProcessing ? "Processing..." : `Pay $${price}`}
         </button>
       </div>

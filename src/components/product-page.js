@@ -30,7 +30,13 @@ const ProductPage = ({match}, props) => {
     const handleClick = ()=> {
         processingAddingToCart = true
         firestore.collection('bags').doc(userCredentials.user.uid).update({
-            bag: firebase.firestore.FieldValue.arrayUnion(product.id)
+            bag: firebase.firestore.FieldValue.arrayUnion({
+                name:product.name, 
+                price:product.price, 
+                size: product.size, 
+                image: product.images[0],
+                id: product.id
+            })
         }).then(()=> {
             processingAddingToCart = false
         })
