@@ -2,6 +2,8 @@ import firebase from 'firebase/app'
 import 'firebase/auth'
 import 'firebase/firestore'
 import 'firebase/storage'
+import 'firebase/functions'
+
 const app = firebase.initializeApp({
     apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
     authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
@@ -15,19 +17,10 @@ const app = firebase.initializeApp({
 export const firestore = app.firestore()
 export const auth = app.auth()
 export const storage = app.storage()
+export const functions = app.functions()
 
-// const getQuery = (params)=> {
-//     const {productType, brand} =  params
-    
-//     let query = firestore.collection('catalog')
-//     if(typeof productType  === 'string') {
-//         query = query.where('productType', '==', productType)
-//     }
-//     if(typeof brand === 'string') {
-//         query = query.where('brand', '==', brand)
-//     }
-//     return query
-// }
+functions.useEmulator('localhost', 5001)
+
 
 export const getCatalog = async (query) => {
     const productsData = await query.get()
@@ -58,8 +51,9 @@ const groupProductsByBrand = (products) => {
 }
 
 export const getNewHeat = async () => {
-    const data = await firestore.collection('catalog').orderBy('dateAdded','desc').limit(5).get()
+    const data = await firestore.collection('catalog').where('sold', '==', false).orderBy('dateAdded','desc').limit(5).get()
     const imagesUrl = await Promise.all(data.docs.map(doc => getMainImageUrl(doc)))
+    console.log(data.docs)
     return data.docs.map((doc, index) => ({
         id: doc.id,
         ...doc.data(),
@@ -79,13 +73,32 @@ export const getProduct = async (id) => {
     }
 }
 
+export const cloudFunctions = {
+    paymentIntent: functions.httpsCallable('paymentIntents'),
+    successfulCheckout: functions.httpsCallable('successfulCheckout')
+}
+
+export const getFeaturedCollections = async () => {
+    const collectionDocs = await firestore.collection('featured-collection').get()
+    const imageUrl = await Promise.all(collectionDocs.docs.map(doc => getFeatureCollectionImageUrl(doc)))
+    const collectionData = collectionDocs.docs.map((doc, index) => ({
+        id: doc.id,
+        ...doc.data(),
+        image: imageUrl[index]
+    }))
+    return collectionData
+}
+
 const getMainImageUrl = async (productDoc) =>  storage.ref(productDoc.id + '/' + productDoc.data().images.main).getDownloadURL()
+
+const getFeatureCollectionImageUrl = async (productDoc) => storage.ref(`home/${productDoc.data().image}`).getDownloadURL()
 
 const getMainAndRestImagesUrl = async (productDoc) =>  {
     const productData = productDoc.data()
     const images = [productData.images.main, ...productData.images.rest]
     return Promise.all(images.map(img => (storage.ref(`${productDoc.id}/${img}`).getDownloadURL())))
 }
+
 
 
 export default app

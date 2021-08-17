@@ -284,6 +284,7 @@ ul.active {
 .product__catalog-name {
     color: var(--clr-dark);
     font-size: 1rem;
+    text-transform: capitalize;
 }
 
 
@@ -303,6 +304,12 @@ ul.active {
 
 .blue {
     background-color: var(--clr-accent-one);
+}
+
+.collection-link {
+    color: var(--clr-light);
+    text-decoration: none;
+
 }
 
 .title{
@@ -423,6 +430,100 @@ footer {
 }
 
 
+/* start of styling for error message */
+
+.error-container {
+    width: 100%;
+    position: absolute;
+    font-family: var(--ff-primary);
+    display: flex;
+    justify-content: center;
+    margin-top: 2rem;
+    
+}
+
+.error-card {
+    background-color: var(--clr-primary);
+    padding: 1rem 4rem;
+    display: flex;
+    position: relative;
+    justify-content: center;
+    align-items: center;
+    transform: translateY(-40px);
+    transition: transform 250ms ease-in, opacity 250ms ease-in ;
+    opacity: 0;
+}
+
+.error-card h1 {
+    color: #8B1718;
+    padding: 0;
+    margin: 0;
+    max-width: 27rem;
+}
+
+.error-close-btn {
+    position: absolute;
+    top: 0;
+    right: 0;
+    color: #8B1718;
+    margin-top: 0.2rem;
+    transition: color 200ms ease;
+}
+
+.error-close-btn:hover {
+    color: var(--clr-light)
+}
+
+.active-error {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+
+/* end of styling for error message */
+
+
+/* start of syling for footer */
+
+footer {
+    padding: 1rem;
+    font-family: var(--ff-primary);
+}
+
+.logo-footer img {
+    width: 5rem;
+}
+
+.footer-info {
+    display: flex;
+    justify-content: space-between;
+}
+
+.footer-contact-list {
+    display: flex;
+    list-style-type: none;
+    padding: 0;
+
+}
+
+.footer-contact-list li {
+    margin-right: 1rem;
+}
+
+.footer-contact-list a {
+    text-decoration: none;
+    text-transform: capitalize;
+    color: var(--clr-text);
+}
+
+.footer-contact-list a:hover {
+    text-decoration: underline;
+    color: var(--clr-light);
+}
+
+.footer-socials li svg {
+    cursor: pointer;
+}
 /* start of media query's for headers and for the main */
 
 @media (min-width: 50rem) {

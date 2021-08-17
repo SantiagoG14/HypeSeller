@@ -1,25 +1,32 @@
 import { useState } from "react";
 import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
 import '../../css/checkout.css'
+import { cloudFunctions } from "../../firebase";
+import { useHistory } from "react-router";
 
+const CheckoutForm = ({ price }) => {
+  const [isProcessing, setProcessingTo] = useState(false)
+  const [checkoutError, setCheckoutError] = useState()
+  const history = useHistory()
 
-const CheckoutForm = ({ price, onSuccessfulCheckout }) => {
-  const [isProcessing, setProcessingTo] = useState(false);
-  const [checkoutError, setCheckoutError] = useState();
-
-  const stripe = useStripe();
-  const elements = useElements();
+  const stripe = useStripe()
+  const elements = useElements()
 
   // TIP
   // use the cardElements onChange prop to add a handler
   // for setting any errors:
 
   const handleCardDetailsChange = ev => {
-    ev.error ? setCheckoutError(ev.error.message) : setCheckoutError();
-  };
+    ev.error ? setCheckoutError(ev.error.message) : setCheckoutError()
+  }
 
   const handleFormSubmit = async ev => {
-    ev.preventDefault();
+    ev.preventDefault()
+
+    if(price === 0) {
+      setCheckoutError('do not have any items in shopping cart')
+      return
+    }
 
     const billingDetails = {
       name: ev.target.name.value,
@@ -30,79 +37,99 @@ const CheckoutForm = ({ price, onSuccessfulCheckout }) => {
         state: ev.target.state.value,
         postal_code: ev.target.zip.value
       }
-    };
+    }
 
-    setProcessingTo(true);
+   
 
-    const cardElement = elements.getElement("card");
+    setProcessingTo(true)
+
+    const cardElement = elements.getElement("card")
 
     try {
-    //   const { data: clientSecret } = await axios.post("/api/payment_intents", {
-    //     amount: price * 100
-    //   });
-
-      const clientSecret = 'no'
+      const {data:clientSecret } = await cloudFunctions.paymentIntent({amount:price*100})
 
       const paymentMethodReq = await stripe.createPaymentMethod({
         type: "card",
         card: cardElement,
         billing_details: billingDetails
-      });
+      })
 
       if (paymentMethodReq.error) {
-        setCheckoutError(paymentMethodReq.error.message);
-        setProcessingTo(false);
-        return;
+        setCheckoutError(paymentMethodReq.error.message)
+        setProcessingTo(false)
+        return
       }
 
       const { error } = await stripe.confirmCardPayment(clientSecret, {
         payment_method: paymentMethodReq.paymentMethod.id
-      });
+      })
 
       if (error) {
-        setCheckoutError(error.message);
-        setProcessingTo(false);
-        return;
+        setCheckoutError(error.message)
+        setProcessingTo(false)
+        return
       }
 
-      onSuccessfulCheckout();
+      setProcessingTo(false)
+
+      cloudFunctions.successfulCheckout({billingDetails: billingDetails})
+      onSuccessfulCheckout()
     } catch (err) {
-      setCheckoutError(err.message);
+      setCheckoutError(err.message)
     }
-  };
+  }
 
-  // Learning
-  // A common ask/bug that users run into is:
-  // How do you change the color of the card element input text?
-  // How do you change the font-size of the card element input text?
-  // How do you change the placeholder color?
-  // The answer to all of the above is to use the `style` option.
-  // It's common to hear users confused why the card element appears impervious
-  // to all their styles. No matter what classes they add to the parent element
-  // nothing within the card element seems to change. The reason for this is that
-  // the card element is housed within an iframe and:
-  // > styles do not cascade from a parent window down into its iframes
 
+const cardElementOptions = {
+
+  CustomFontSource: {
+    family: 'Heebo',
+    scr: 'url(https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;800;900&display=swap)'
+  },
+  style:{
+    base:{
+      outline: 'solid 1px black',
+      fontSize: '1rem',
+      fontWeight: '400',
+      width: '100%'
+    },
+
+    invalid: {
+      color: '#FF2F2F'
+    },
+
+    
+  },
+
+  hidePostalCode: true,
+  
+}
+
+const onSuccessfulCheckout = () => {
+  history.push('/success', {state:{cameFromCheckout: true}})
+}
 
   return (
     <form onSubmit={handleFormSubmit} className="checkout-form">
-
+        <h1 className="form-title">CHECKOUT</h1>
         <div className="input-fields">
-            <InputField fieldName="Name" />
-            <InputField fieldName="Email" />
-            <InputField fieldName="Adress" />
-            <InputField fieldName="State" />
-            <InputField fieldName="ZIP" />
+            <InputField fieldName="Name" type="text"/>
+            <InputField fieldName="Email" type="email"/>
+            <InputField fieldName="Address" type="text" />
+            <InputField fieldName="City" type="text"/>
+            <InputField fieldName="State" type="text"/>
+            <InputField fieldName="ZIP" type="text"/>
         </div>
       <div>
-        <div>
+        <div className="card-element-container">
           <CardElement
             onChange={handleCardDetailsChange}
+            options={cardElementOptions}
           />
         </div>
       </div>
       {checkoutError && <div>{checkoutError}</div>}
-      <div>
+      <div className="checkout-btn-container">
         {/* TIP always disable your submit button while processing payments */}
         <button disabled={isProcessing || !stripe} className="checkout-btn">
           {isProcessing ? "Processing..." : `Pay $${price}`}
@@ -115,11 +142,12 @@ const CheckoutForm = ({ price, onSuccessfulCheckout }) => {
 const InputField = (props)=>{
     return(
         <div className="checkout-input-field">
-            <p>{props.fieldName}</p>
-            <input type="text" />
+            <label htmlFor={props.fieldName.toLowerCase()}>{props.fieldName}</label>
+            <input type={props.type} id={props.fieldName.toLowerCase()} name={props.fieldName.toLowerCase()} required/>
         </div>
     )
 }
-export default CheckoutForm;
 
+
+export default CheckoutForm
 

@@ -15,8 +15,14 @@ const ProductDetails = (props) => {
             brandName={upperCase(product.brand)}
             />
 
-            <AddToCartBtn handleClick={props.addToCartClick} processing={props.processingAddingToCart}/>     
+            <AddToCartBtn 
+            handleClick={props.addToCartClick} 
+            processing={props.processingAddingToCart} 
+            alreadyInBag={props.alreadyInBag} 
+            sold={product.sold}/>     
+
             <div className="descriptions">
+
                 <Details 
                 size={product.size}
                 price={product.price}
@@ -24,7 +30,6 @@ const ProductDetails = (props) => {
                 worn={product.worn}
                 colorway={product.colorway}
                 />   
-
 
                 <Description 
                     description={product.description}
@@ -55,15 +60,24 @@ const ShoeInfo = (props) => {
 const AddToCartBtn = (props)=> {
     return(
         <div className="action__btns">
-            <button className="cart" onClick={props.handleClick} disabled={props.processing}>{props.processing ? 'please wait' : 'add to shopping bag'}</button>
+            {props.sold 
+            ? <SoldOutBtn />
+            :<button className={props.alreadyInBag ? 'cart unactive-cart' : 'cart'} onClick={props.handleClick} disabled={props.processing || props.alreadyInBag}>{props.alreadyInBag ? 'Already in shopping bag' : 'Add to shopping bag'}</button>
+            }
         </div>
+    )
+}
+
+const SoldOutBtn = () => {
+    return(
+        <button className="cart sold-out-btn">Sold</button>
     )
 }
 
 const Details = (props)=> {
     return(
         <>
-            <h1 className="descriptions-title">Detail: </h1>
+            <h1 className="descriptions-title">Details: </h1>
             <div className="attributes">
                 <ul>
                     <li key={`${props.id}1`} className="attributes__list-item important-text">Size:  </li>

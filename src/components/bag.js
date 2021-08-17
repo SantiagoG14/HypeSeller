@@ -1,8 +1,8 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-const ShoppingBag = ({numberOfItems})=> {
+const ShoppingBag = ({numberOfItems, handleClick})=> {
     return(
-        <Link to="/checkout" className="shopping-bag-link">
+        <Link to="/checkout" className="shopping-bag-link" onClick={handleClick}>
             <div className="shopping-bag">  
                 <span className="material-icons-outlined">
                         shopping_bag

@@ -81,6 +81,14 @@
 
 }
 
+.unactive-cart {
+    background-color: var(--clr-accent-two);
+}
+
+.sold-out-btn {
+    background-color: var(--clr-dark);
+    cursor: not-allowed;
+}
 
 .descriptions {
     width: 46.8125rem;

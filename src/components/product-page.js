@@ -1,16 +1,20 @@
-import React, {useState, useEffect, useContext} from 'react'
+import React, {useState, useEffect} from 'react'
 import { firestore, getProduct} from '../firebase'
 import firebase from 'firebase/app'
 import PictureDisplay from './product-page-components/product-images'
 import ProductDetails from './product-page-components/productDetails'
-import { AppContext } from '../App'
+import { useApp } from '../context/AppContext'
 
 const ProductPage = ({match}, props) => {
+
+    const { userCredentials, shoppingBag } = useApp()
     let processingAddingToCart = false
     const [product, setProduct] = useState({
         images: [],
         brand: ' '
     })
+
+    const [alreadyInBag, setAlreadyInBag] = useState(false)
 
     useEffect(()=>{
         let isSubscribed = true
@@ -18,14 +22,16 @@ const ProductPage = ({match}, props) => {
             if(isSubscribed){
                 setProduct(productData)
                 window.scrollTo(0,0)
-
+                const isInBag = shoppingBag.bag.find((item) => item.id === productData.id)
+                if(isInBag) {
+                    setAlreadyInBag(true)
+                }
             }
         })
 
         return ()=> isSubscribed = false
-    },[match.params.id])
+    },[match.params.id, shoppingBag.bag])
 
-    const userCredentials = useContext(AppContext)
 
     const handleClick = ()=> {
         processingAddingToCart = true
@@ -50,6 +56,7 @@ const ProductPage = ({match}, props) => {
                 product={product}
                 addToCartClick={handleClick}
                 processingAddingToCart={processingAddingToCart}
+                alreadyInBag={alreadyInBag}
                  />
             </div>
         </main>
