@@ -70,10 +70,11 @@ const CheckoutForm = ({ price }) => {
         return
       }
 
+
+      const { data:successDetails } = await cloudFunctions.successfulCheckout({billingDetails: billingDetails})
+      onSuccessfulCheckout(successDetails)
       setProcessingTo(false)
 
-      cloudFunctions.successfulCheckout({billingDetails: billingDetails})
-      onSuccessfulCheckout()
     } catch (err) {
       setCheckoutError(err.message)
     }
@@ -105,8 +106,8 @@ const cardElementOptions = {
   
 }
 
-const onSuccessfulCheckout = () => {
-  history.push('/success', {state:{cameFromCheckout: true}})
+const onSuccessfulCheckout = (successDetails) => {
+  history.push('/success', {cameFromCheckout: true, successDetails})
 }
 
   return (

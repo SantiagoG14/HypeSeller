@@ -1,9 +1,12 @@
+
+
 .on-success-container {
     padding-top: 5rem;
     margin: auto;
     font-family: var(--ff-primary);
     max-width: 71.375rem;
     position: relative;
+    padding-top: 10rem;
 }
 
 .return-to-home-page {
@@ -12,6 +15,7 @@
     right: 0;
     margin-right: 0.5rem;
     cursor: pointer;
+    margin-top: 1rem;
 }
 
 .return-to-home-page-link {

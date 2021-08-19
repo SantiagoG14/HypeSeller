@@ -267,6 +267,27 @@ ul.active {
     margin-bottom: 1em;
 }
 
+.collection-image-placeholder {
+    width: 100vw;
+    height: 100vh;
+    max-width: 56.0625rem;
+    max-height: 59.875rem;
+    background-color: var(--clr-accent-two);
+    animation: load-animation 1000ms infinite;
+}
+
+@keyframes load-animation {
+    0% {
+        background-color: #fff;
+      }
+      50% {
+        background-color: var(--clr-text);
+      }
+      100% {
+        background-color: #fff;
+      }
+}
+
 .buy-button {
     position: absolute;
     bottom: 0;
@@ -280,6 +301,8 @@ ul.active {
     flex-direction: column;
     
 }
+
+
 
 .product__catalog-name {
     color: var(--clr-dark);
@@ -429,6 +452,11 @@ footer {
     font-family: var(--ff-primary);
 }
 
+.footer-on-success {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
 
 /* start of styling for error message */
 

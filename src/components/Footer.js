@@ -1,10 +1,15 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { Instagram } from '@material-ui/icons'
+import { useLocation } from 'react-router'
 
 export default function Footer() {
+    const location = useLocation()
+    const pathname = location.pathname
+    console.log(location, pathname)
+    
     return (
-        <footer>
+        <footer className={pathname === '/success' ? 'footer-on-success' : ''}>
             <div className="logo-footer">
                 <img className="checkout-nav-image" src="https://firebasestorage.googleapis.com/v0/b/cheap-hype-seller.appspot.com/o/logo%2FLogo.jpg?alt=media&token=90fa8cc8-beb3-4254-a492-402ce96e3aef" alt="Cheap Hype Seller Logo" />
             </div>

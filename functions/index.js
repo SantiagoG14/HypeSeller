@@ -48,13 +48,25 @@ exports.successfulCheckout = functions.https.onCall(async (data, context) => {
   // Checking that the user is authenticated.
   validateAuth(context)
 
+  
+
   const bagReference = admin.firestore().collection('bags').doc(context.auth.uid)
   const bagDoc = await bagReference.get()
-  admin.firestore().collection('orders').add({
+
+  const bagData = bagDoc.data()
+  const totalPriceReducer = (accomulator, currentItem) => accomulator + currentItem.price
+  const amount = bagData.bag.reduce(totalPriceReducer, 0)
+
+  const orderDetails = {
     userId: context.auth.uid,
     items: bagDoc.data().bag,
-    billingDetails: data.billingDetails
-  })
+    billingDetails: data.billingDetails,
+    date: admin.firestore.FieldValue.serverTimestamp(),
+    total: amount
+  }
+
+  const orderRef = await admin.firestore().collection('orders').add(orderDetails)
+  const orderDoc = await orderRef.get()
 
   const catalogReference = admin.firestore().collection('catalog')
   Promise.all(bagDoc.data().bag.map(item => (
@@ -62,12 +74,22 @@ exports.successfulCheckout = functions.https.onCall(async (data, context) => {
       sold: true
     }, { merge: true})
     )))
+  
+  const successDetails = {
+    items: orderDetails.items.length,
+    date: orderDoc.get('date').toDate().toUTCString(),
+    orderId: orderDoc.id,
+    total: orderDetails.total
+  }
 
   //reset user bag
 
   bagReference.set({
     bag: []
   })
+
+  return successDetails
+
 })
 
 function validateAuth(context) {

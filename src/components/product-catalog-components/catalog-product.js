@@ -3,8 +3,6 @@ import {Link} from 'react-router-dom'
 
 
 const Product = (props)=> {
-
-    console.log(props.image)
     return(
         <div className="product" key={props.id}>
             <Link to={`/catalog/products/${props.id}`}>

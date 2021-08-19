@@ -67,7 +67,8 @@
 .remove-item-btn {
     position: absolute;
     bottom: 0;
-    right: 5%;
+    right: 0;
+    margin-right: 5%;
     color: var(--clr-dark);
     display: flex;
     cursor: pointer;
@@ -76,6 +77,14 @@
 .remove-item-btn span {
     font-size: 1rem;
     color: var(--clr-dark);
+    transition: color 150ms ease;
+}
+
+
+
+.remove-item-btn:hover span {
+    color: var(--clr-primary);
+    text-decoration: none;
 }
 
 .checkout-item-info {
@@ -266,6 +275,17 @@
     .checkout-item-info {
         margin-right: 5rem;
     }
+
+
+    .remove-item-btn {
+        transform: translateX(10rem);
+        transition: transform 200ms ease;
+    }
+
+    .checkout-item:hover .remove-item-btn {
+        transform: translateX(0);
+    }
+
 
 
 

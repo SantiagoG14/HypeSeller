@@ -101,7 +101,7 @@ const Details = (props)=> {
 const Description = (props) => {
     return(
         <div className="shoe-description">
-            <h1 className="descriptions-title">Descripition: </h1>
+            <h1 className="descriptions-title">Description: </h1>
             <p className="text">{props.description}</p>
         </div>
     )

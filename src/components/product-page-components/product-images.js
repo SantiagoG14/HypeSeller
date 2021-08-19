@@ -5,7 +5,7 @@ import React from 'react'
 const Picture = (props) => {
 
     return(
-        <img src={props.image} alt="" className="display-image" />
+        <img src={props.image} alt="" className="display-image" loading='lazy'/>
     )
 }
 
@@ -15,7 +15,7 @@ const PictureDisplay = (props) => {
         <section className="image__display">
             {
             images.map((image, index) =>(
-                <Picture image={image} key={index}/> 
+                <Picture image={image} key={image}/> 
             ))
             }   
         </section>
