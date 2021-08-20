@@ -46,7 +46,7 @@ const CheckoutForm = ({ price }) => {
     const cardElement = elements.getElement("card")
 
     try {
-      const {data:clientSecret } = await cloudFunctions.paymentIntent({amount:price*100})
+      const {data:clientSecret } = await cloudFunctions.paymentIntent({amount:price})
 
       const paymentMethodReq = await stripe.createPaymentMethod({
         type: "card",
@@ -76,6 +76,7 @@ const CheckoutForm = ({ price }) => {
       setProcessingTo(false)
 
     } catch (err) {
+      setProcessingTo(false)
       setCheckoutError(err.message)
     }
   }

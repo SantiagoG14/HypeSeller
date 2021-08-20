@@ -99,6 +99,28 @@ const getMainAndRestImagesUrl = async (productDoc) =>  {
     return Promise.all(images.map(img => (storage.ref(`${productDoc.id}/${img}`).getDownloadURL())))
 }
 
+// firestore.collection('bags').add({name: 'hello'}).catch((err)=>console.log('failed to add collection' + err))
+
+// firestore.collection('bags').doc('G7vEVzcScbgZmwtbGp2NaX2yEMF2').get().catch((err)=>console.log('failed to get bag' + err))
+
+// // test set bag
+
+// firestore.collection('bags').doc('G7vEVzcScbgZmwtbGp2NaX2yEMF2').set({bag: []}).catch((err) => console.log(`failed to add bag ${err}`))
+
+// firestore.collection('featured-collection').doc('G7vEVzcScbgZmwtbGp2NaX2yEMF2').set({bag: []}).catch((err) => console.log(`failed to add featured collection ${err}`))
+
+// firestore.collection('catalog').doc('G7vEVzcScbgZmwtbGp2NaX2yEMF2').set({bag: []}).catch((err) => console.log(`failed to add to catalog ${err}`))
+
+// firestore.collection('orders').doc('G7vEVzcScbgZmwtbGp2NaX2yEMF2').set({bag: []}).catch((err) => console.log(`failed to add order ${err}`))
+
+// firestore.collection('orders').doc('1sGeNl4tptpjO03gZXMB').get().catch((err) => console.log(`failed to get order ${err}`))
+
+
+// firestore.collection('orders').get().catch((err)=>console.log(`failed to get all orders ${err}`))
+// firestore.collection('bags').get().catch((err)=>console.log(`failed to get all bags ${err}`))
+
+
+
 
 
 export default app

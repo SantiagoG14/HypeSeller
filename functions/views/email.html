@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;800;900&display=swap');
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+        }
+
+        :root {
+            --clr-dark: #000000;
+            --clr-primary: #FF2F2F;
+            --clr-light:  #FFFFFF;
+            --clr-accent-one: #2B94FC;
+            --clr-accent-two: #1D1B20;
+            --clr-price: grey;
+            --clr-text: #505050;
+            --clr-bg: #C4C4C4;
+
+            --fw-light: 300;
+            --fw-regular: 400;
+            --fw-bold: 800;
+            --fw-black: 900;
+
+            --ff-primary: 'Heebo', sans-serif;
+
+            --letter-spacing: 0.125rem;
+
+        }
+        .email-container {
+            width: 60rem;
+            max-width: 100%;
+            margin: auto;
+            background-color: var(--clr-bg);
+            font-family: var(--ff-primary);
+        }
+
+        .email-header {
+            width: 100%;
+            background-color: var(--clr-dark);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.5rem 0;
+        }
+
+        .email-container img {
+            width: 7rem;
+        }
+
+        .email-title {
+            text-align: center;
+            color: var(--clr-text) 
+        }
+
+        .details-container {
+            padding: 2rem;
+        }
+
+        .order-details {
+            width: 50%;
+            min-width: 20rem;
+            margin-top: 4rem;
+            color: var(--clr-text)
+        }
+
+        .order-details-list {
+            padding: 0;
+            list-style-type: none;
+
+        }
+
+        .order-details-list li {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+        }
+
+        .detail-section {
+            font-weight: var(--fw-bold);
+            color: var(--clr-dark)
+        }
+
+        .order-items {
+            margin-bottom: 3rem;
+        }
+
+        .order-items p {
+            text-transform: capitalize;
+            color: var(--clr-dark);
+            font-weight: var(--fw-bold);
+            margin-bottom: 1rem;
+        }
+
+        .order-item {
+            display: flex;
+            align-items: center;
+
+        }
+        .order-item img {
+            width: 10rem;
+            max-width: 100%;
+        }
+
+        .item-details ul {
+            list-style-type: none;
+            width: 45vw;
+            min-width: 8rem;
+            max-width: 16rem;
+        }
+
+        .item-details ul li {
+            display: flex;
+            justify-content: space-between;
+            text-transform: capitalize;
+            color: var(--clr-text)
+        }
+
+        .item-detail-field,  
+        .item-detail-name{
+            font-weight: var(--fw-bold);
+            color: var(--clr-dark);
+        }
+
+        .item-detail-name {
+            color: var(--clr-dark);
+        }
+
+        .shipping-details h1 {
+            margin-bottom: 2rem;
+        }
+        .shipping-details p {
+            max-width: 40rem;
+            margin-bottom: 1rem;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="email-container">
+        <div class="email-header">
+          <img src="https://firebasestorage.googleapis.com/v0/b/cheap-hype-seller.appspot.com/o/logo%2FLogo.jpg?alt=media&token=90fa8cc8-beb3-4254-a492-402ce96e3aef" alt="">
+        </div>
+        
+        <div class="details-container">
+            <h1 class="email-title">Thanks for shopping with us</h1>
+            <div class="order-details">
+              <ul class="order-details-list">
+                <li><span class="detail-section">Items:</span>1</li>
+                <li><span class="detail-section">Total:</span>$499.99</li>
+                <li><span class="detail-section">Shipping address:</span>4070 149th SE</li>
+              </ul>
+            </div>
+            
+            <div class="order-items">
+              <p>item review:</p>
+              <div class="order-items-container">
+                <div class="order-item">
+                  <img src="https://firebasestorage.googleapis.com/v0/b/cheap-hype-seller.appspot.com/o/F1HA67HW1xh6xyxDMokO%2FblackYeezy1.jpg?alt=media&token=4f2cf3be-510b-49a6-a634-3375e2b177b5" alt="">
+                  <div class="item-details">
+                    <ul>
+                      <li class="item-detail-name"><span class="item-detail-field">Yeezy</span></li>
+                      <li><span class="item-detail-field">price:</span>$499.99</li>
+                      <li><span class="item-detail-field">size:</span>10 US men</li>
+            
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="shipping-details">
+              <h1 class="email-title">Shipping Details</h1>
+              <p>This will be e-mailed to you as soon as we ship your products, keep an eye from an email from us, for your shipping information</p>
+              <p>If any deatails are wrong please email <a href="">Cheap-Hype-Seller@hype.com</a></p>
+            </div>
+                  </div class="email-container">
+        </div>
+</body>
+</html>

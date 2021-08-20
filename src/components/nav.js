@@ -10,7 +10,6 @@ function Nav() {
     const { shoppingBag } = useApp()
     const location = useLocation()
 
-
     const CheckoutNav = () => {
         return(
             <header className="checkout-nav">
@@ -54,7 +53,7 @@ const MainNav = ({shoppingBag}) => {
     return(
         <header>
             <Link to="/" className="logo" onClick={handleClickLogo}>
-                <img src="./pictures/Icons/Logo.jpg" alt="Cheap Hype Seller Logo" />
+                <img src="/pictures/Icons/Logo.jpg" alt="Cheap Hype Seller Logo" />
             </Link>
             <input type="checkbox" id="toggle-nav" className="toggle-nav" />
             <nav>
