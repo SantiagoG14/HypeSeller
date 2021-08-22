@@ -69,7 +69,6 @@ const MainNav = ({shoppingBag}) => {
                         <ul key="item3" className={activeDropDown ? 'active' : ''}>
                             <li key="item4" className="shoes-list-item"><Link to="/catalog/shoes/adidas" className="shoes-list-link" onClick={handleActiveList}>Adidas</Link></li>
                             <li key="item5" className="shoes-list-item"><Link to="/catalog/shoes/nike" className="shoes-list-link" onClick={handleActiveList}>Nike</Link></li>
-                            <li key="item6" className="shoes-list-item"><Link to="/catalog/shoes/nike" className="shoes-list-link" onClick={handleActiveList}>Gucci</Link></li>
                         </ul>
                     </div>
                     <li key="item7" className="list-items"><Link to="/catalog/clothes" className="list-link">Clothes</Link></li>

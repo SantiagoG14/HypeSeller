@@ -2,6 +2,8 @@ const functions = require("firebase-functions")
 const admin = require('firebase-admin')
 const stripe = require("stripe")
 const nodemailer = require("nodemailer")
+const hbs = require("nodemailer-express-handlebars")
+const { firestore } = require("firebase-admin")
 
 require('dotenv/config')
 
@@ -119,14 +121,19 @@ function validateAuth(context) {
 exports.sendEmail = functions.firestore.document('/orders/{orderId}')
 .onCreate( async (snap, context) => {
 
-  let transporer = nodemailer.createTransport({
+  let transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
       user: 'sagaan14@gmail.com',
-      pass: ''
+      pass: 'tsrjbedfyddtkkqb'
     }
 
   })
+
+  transporter.use('compile', hbs({
+    viewEngine: 'express-handlebars',
+    viewPath: './',
+  }))
 
   const destData = snap.data()
   const dest = destData.email
@@ -137,13 +144,17 @@ exports.sendEmail = functions.firestore.document('/orders/{orderId}')
     from: `Cheap Hype Seller <sagaan14@gmail.com>`,
     to: dest,
     subject: `Cheap hype seller order`,
-    html: 
-    `<h1>Thanks for shopping with us</h1>
+    template: 'main', 
+    context : {
+      ...destData
+    }
+    // html: 
+    // `<h1>Thanks for shopping with us</h1>
 
-    `
+    // `,
   }
   
-  return transporer.sendMail(mailOptions, (erro,info) => {
+  return transporter.sendMail(mailOptions, (erro,info) => {
     if(erro) {
       functions.logger.info(`Error occured while sending email ${erro}`, {structuredData: true})
       return erro.toString()
@@ -151,4 +162,38 @@ exports.sendEmail = functions.firestore.document('/orders/{orderId}')
 
     functions.logger('succeded')
   })
+})
+
+
+exports.createDummyOrder = functions.https.onRequest( async(req, res) => {
+  const id =  await firestore().collection('orders').add({
+    billingDetails: {
+      address : {
+        line1: '4970 149th SE'
+      }
+      
+    },
+    email : 'sagaan@outlook.com',
+
+    total: '$1',
+
+    items: [
+    {
+      name: 'Yeezy Boost 350 V2',
+      price: 499.99,
+      image: 'https://firebasestorage.googleapis.com/v0/b/cheap-hype-seller.appspot.com/o/F1HA67HW1xh6xyxDMokO%2FblackYeezy1.jpg?alt=media&token=4f2cf3be-510b-49a6-a634-3375e2b177b5',
+      size: '10 US Men'
+    },
+
+    {
+      name: 'Yeezy Boost 350 V2',
+      price: 499.99,
+      image: 'https://firebasestorage.googleapis.com/v0/b/cheap-hype-seller.appspot.com/o/F1HA67HW1xh6xyxDMokO%2FblackYeezy1.jpg?alt=media&token=4f2cf3be-510b-49a6-a634-3375e2b177b5',
+      size: '10 US Men'
+    },
+    
+    ]
+  })
+
+  res.json(`Added dummy user ${id.id}`)
 })
