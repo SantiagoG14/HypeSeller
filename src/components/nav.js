@@ -14,7 +14,7 @@ function Nav() {
         return(
             <header className="checkout-nav">
                 <Link to="/" className="checkout-nav-logo">
-                    <img className="checkout-nav-image" src="https://firebasestorage.googleapis.com/v0/b/cheap-hype-seller.appspot.com/o/logo%2FLogo.jpg?alt=media&token=90fa8cc8-beb3-4254-a492-402ce96e3aef" alt="Cheap Hype Seller Logo" />
+                    <img className="checkout-nav-image" src="/pictures/Icons/Logo.jpg" alt="Cheap Hype Seller Logo" />
                 </Link>
             </header>
         )
@@ -61,7 +61,7 @@ const MainNav = ({shoppingBag}) => {
                     <div key="item1" className="nav-shoes-list">
 
                         <li key="item2" className="list-items">
-                            <Link to="/catalog/shoes" className="list-link">Shoes</Link>
+                            <Link to="/catalog/shoes" className="list-link" onClick={()=> setActive(false)}>Shoes</Link>
                             <span onClick={()=>handleActiveList()}>
                                 <i className="fas fa-angle-down list-link-dropdown"></i>
                             </span>

@@ -165,35 +165,28 @@ exports.sendEmail = functions.firestore.document('/orders/{orderId}')
 })
 
 
-exports.createDummyOrder = functions.https.onRequest( async(req, res) => {
-  const id =  await firestore().collection('orders').add({
-    billingDetails: {
-      address : {
-        line1: '4970 149th SE'
-      }
-      
-    },
-    email : 'sagaan@outlook.com',
+exports.createProduct = functions.https.onRequest((req, res) => {
+  const product = {
+    brand: req.body.brand,
+    name: req.body.name,
+    nickname: req.body.nickname,
+    productType: req.body.productType,
+    colorway: req.body.colorway,
+    condition: req.body.condition,
+    price: req.body.price,
+    size: req.body.size,
+    sold: false,
+    worn: req.body.worn,
+    description: req.body.description,
+    images: req.body.images,
+    dateAdded: new Date().toUTCString()
+  }
 
-    total: '$1',
-
-    items: [
-    {
-      name: 'Yeezy Boost 350 V2',
-      price: 499.99,
-      image: 'https://firebasestorage.googleapis.com/v0/b/cheap-hype-seller.appspot.com/o/F1HA67HW1xh6xyxDMokO%2FblackYeezy1.jpg?alt=media&token=4f2cf3be-510b-49a6-a634-3375e2b177b5',
-      size: '10 US Men'
-    },
-
-    {
-      name: 'Yeezy Boost 350 V2',
-      price: 499.99,
-      image: 'https://firebasestorage.googleapis.com/v0/b/cheap-hype-seller.appspot.com/o/F1HA67HW1xh6xyxDMokO%2FblackYeezy1.jpg?alt=media&token=4f2cf3be-510b-49a6-a634-3375e2b177b5',
-      size: '10 US Men'
-    },
-    
-    ]
-  })
-
-  res.json(`Added dummy user ${id.id}`)
+  firestore().collection('catalog').add(product)
+    .then(productId => {
+      res.json({ message: `product create ${productId}`})
+    })
+    .catch(err => {
+      res.status(500).json({ error: `something went wrong ${err}`})
+    })
 })

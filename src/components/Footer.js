@@ -6,7 +6,6 @@ import { useLocation } from 'react-router'
 export default function Footer() {
     const location = useLocation()
     const pathname = location.pathname
-    console.log(location, pathname)
     
     return (
         <footer className={pathname === '/success' ? 'footer-on-success' : ''}>
@@ -17,9 +16,9 @@ export default function Footer() {
             <div className="footer-info">
                 <div className="footer-contact">
                     <ul className="footer-contact-list">
-                        <li key='footer-conctact-1'><Link>Contact Us</Link></li>
-                        <li key='footer-conctact-2'><Link>Suppliers</Link></li>
-                        <li key='footer-conctact-3'><Link>About</Link></li>
+                        <li key='footer-conctact-1'><Link to="/">Contact Us</Link></li>
+                        <li key='footer-conctact-2'><Link to="/">Suppliers</Link></li>
+                        <li key='footer-conctact-3'><Link to="/">About</Link></li>
                     </ul>
                 </div>
                 <div className="footer-socials">

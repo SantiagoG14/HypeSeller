@@ -84,22 +84,20 @@ const CheckoutForm = ({ price }) => {
 
 const cardElementOptions = {
 
-  CustomFontSource: {
-    family: 'Heebo',
-    scr: 'url(https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;800;900&display=swap)'
-  },
+  // CustomFontSource: {
+  //   family: 'Heebo, sans-serif',
+  //   scr: 'url(https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;800;900&display=swap)'
+  // },
   style:{
     base:{
-      outline: 'solid 1px black',
-      fontSize: '1rem',
+      fontSize: '16px',
       fontWeight: '400',
-      width: '100%'
+      // width: '100%'
     },
 
     invalid: {
       color: '#FF2F2F'
     },
-
     
   },
 

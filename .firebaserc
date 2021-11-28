@@ -1,5 +1,6 @@
 {
   "projects": {
-    "default": "cheap-hype-seller"
+    "default": "cheap-hype-seller-28acc",
+    "dev": "cheap-hype-seller-28acc"
   }
 }

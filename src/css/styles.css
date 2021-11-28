@@ -19,10 +19,14 @@ nav {
     width: 100%;
     font-family: var(--ff-primary);
     background-color: var(--clr-dark);
-    display: none;
+    overflow: hidden;
     text-transform: uppercase;
+    transition: transform 400ms ease;
+    transform: scaleY(0);
+    transform-origin: top;
 
 }
+
 
 .logo {
     width: 8rem;
@@ -37,6 +41,9 @@ nav {
     padding: 0;
     margin: 0;
     list-style-type: none;
+    opacity: 0;
+    transition: opacity 150ms ease;
+
 }
 
 .list-items{
@@ -55,8 +62,6 @@ nav {
     margin-left: 0.25rem;
     cursor: pointer;
 }
-
-
 
 
 .list-link::after {
@@ -177,8 +182,16 @@ ul.active {
     display: none;
 }
 .toggle-nav:checked + nav {
-    display: block;
+   display: block;
+   transform: scaleY(1);
 }
+
+.toggle-nav:checked + nav .list {
+    opacity: 1;
+    transition: opacity 200ms ease 400ms;
+
+}
+
 
 .toggle-nav-label {
     position: absolute;
@@ -590,6 +603,7 @@ footer {
         margin-right: 5rem;
         justify-content: space-around;
         font-weight: var(--fw-bold);
+        opacity: 1;
     }
 
     .list-items {

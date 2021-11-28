@@ -61,7 +61,7 @@ const Item = ({image, productName, productPrice, productSize, item})=> {
                 
                 <span className="remove-item-btn" onClick={removeItemFromBag}>
                     {processing ? '...Removing' : 'Remove'}
-                    <span class="material-icons-outlined ">
+                    <span className="material-icons-outlined ">
                         close
                     </span>
                 </span>

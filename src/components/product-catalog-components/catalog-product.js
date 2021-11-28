@@ -1,8 +1,9 @@
-import React from 'react'
+import React, {useState} from 'react'
 import {Link} from 'react-router-dom'
 
 
 const Product = (props)=> {
+    const [loading, setLoading] = useState(true)
     return(
         <div className="product" key={props.id}>
             <Link to={`/catalog/products/${props.id}`}>
@@ -10,7 +11,8 @@ const Product = (props)=> {
                 ?<img src={props.image} alt=""/>
                 :<div className='product-img-placeholder'></div>
                 } */}
-                <div loading="lazy" className="product-img-placeholder" style={{ backgroundImage: `url(${props.image})`}} alt={props.name}></div>
+                {loading && <div className="product-img-placeholder"></div>}
+                <img src={props.image} alt={props.name} onLoad={()=>setLoading(false)} loading="lazy" />
             </Link>
 
             {props.sold && 

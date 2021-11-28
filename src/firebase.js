@@ -53,7 +53,6 @@ const groupProductsByBrand = (products) => {
 export const getNewHeat = async () => {
     const data = await firestore.collection('catalog').where('sold', '==', false).orderBy('dateAdded','desc').limit(5).get()
     const imagesUrl = await Promise.all(data.docs.map(doc => getMainImageUrl(doc)))
-    console.log(data.docs)
     return data.docs.map((doc, index) => ({
         id: doc.id,
         ...doc.data(),

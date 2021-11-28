@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react'
+import React from 'react'
 import { Link } from 'react-router-dom'
 import { Redirect, useLocation } from 'react-router'
 
@@ -9,7 +9,6 @@ export default function SuccessfulCheckout() {
     if(cameFromCheckout) {
 
         const { successDetails } = location.state
-        console.log( location.state.successDetails, cameFromCheckout)
 
         return (
             <div className="center-container">

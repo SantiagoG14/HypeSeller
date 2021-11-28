@@ -17,19 +17,19 @@ export default function AppContext({ children }) {
         let unsubscribe = ''
         if(isSubscribed){
             auth.signInAnonymously().then(userCredentials => {
-            setUserCredentials(userCredentials)
+                setUserCredentials(userCredentials)
 
-            const bagRef = firestore.collection('bags').doc(userCredentials.user.uid)
-            const isNewUser = userCredentials.additionalUserInfo.isNewUser
-            if(isNewUser) {
-                unsubscribe = bagRef.set({bag:[]}).then(() => bagRef.onSnapshot((snapshot) => {
-                setShoppingBag({...snapshot.data()})
-                }))
-            }else {
-                unsubscribe = bagRef.onSnapshot((snapshot) => {
-                setShoppingBag({...snapshot.data()})
-                })
-            }
+                const bagRef = firestore.collection('bags').doc(userCredentials.user.uid)
+                const isNewUser = userCredentials.additionalUserInfo.isNewUser
+                if(isNewUser) {
+                    unsubscribe = bagRef.set({bag:[]}).then(() => bagRef.onSnapshot((snapshot) => {
+                        setShoppingBag({...snapshot.data()})
+                    }))
+                }else {
+                    unsubscribe = bagRef.onSnapshot((snapshot) => {
+                        setShoppingBag({...snapshot.data()})
+                    })
+                }
             })
         }
         return () => {
